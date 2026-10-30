@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit(/wiki/**)",
+      "Edit(/output/**)"
+    ],
+    "deny": [
+      "Edit(/raw/**)",
+      "Bash(rm:*)",
+      "Bash(git push:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-raw.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
